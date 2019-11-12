@@ -110,5 +110,4 @@ public class AgentRandomDestination extends BaseAgent {
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "resourcePickupLocation = " + resourcePikcupLocation);
 		Logger.getLogger(this.getClass().getName()).log(Level.INFO, "resourceDropoffLocation = " + resourceDropoffLocation);
 	}
-
 }
