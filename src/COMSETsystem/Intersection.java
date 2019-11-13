@@ -139,14 +139,16 @@ public class Intersection implements Comparable<Intersection> {
 
 	public boolean isGood(){
 		// -73.9935836792,40.7675285339
-		if(this.latitude == 40.7675285339 && this.longitude == -73.9935836792){
+		if(((Math.abs(this.latitude - 40.7675285339) < .001)) && ((Math.abs(this.longitude - -73.9935836792) < .001))){
 			return true;
 		}
 		// -73.9917297363,40.7496681213
-		else if (this.latitude == 40.7496681213 && this.longitude == -73.9917297363){
+		else if(((Math.abs(this.latitude - 40.7496681213) < .001)) && ((Math.abs(this.longitude - -73.9917297363) < .001))){
 			return true;
 		}
-		return false;
+		else {
+			return false;
+		}
 	}
 
 	/**

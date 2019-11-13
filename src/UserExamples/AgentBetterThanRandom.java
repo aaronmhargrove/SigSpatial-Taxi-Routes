@@ -18,7 +18,6 @@ import java.util.logging.Logger;
  * is assigned to a resource.
  */
 public class AgentBetterThanRandom extends BaseAgent {
-
     // search route stored as a list of intersections.
     LinkedList<Intersection> route = new LinkedList<Intersection>();
 
@@ -26,10 +25,13 @@ public class AgentBetterThanRandom extends BaseAgent {
     Random rnd;
 
     // a static singleton object of a data model, shared by all agents
-    static DataModel dataModel = null;
+    static DummyDataModel dataModel = null;
+
+    // Intersections that fit our criteria
+    ArrayList<Intersection> inters =  new ArrayList<Intersection>();
 
     /**
-     * BetterThanRandom constructor.
+     * AgentRandomWalk constructor.
      *
      * @param id An id that is unique among all agents and resources
      * @param map The map
@@ -38,7 +40,14 @@ public class AgentBetterThanRandom extends BaseAgent {
         super(id, map);
         rnd = new Random(id);
         if (dataModel == null) {
-            dataModel = new DataModel(map);
+            dataModel = new DummyDataModel(map);
+        }
+
+        Intersection[] intersectionArray = map.intersections().values().toArray(new Intersection[map.intersections().size()]);
+        for(Intersection inter : intersectionArray){
+            if(inter.id == 42430722 || inter.id == 42435422){
+                inters.add(inter);
+            }
         }
     }
 
@@ -50,17 +59,17 @@ public class AgentBetterThanRandom extends BaseAgent {
      * end intersection of the current road, i.e., it must not be that
      * route.get(0) == currentLocation.road.to.
      */
+
     @Override
     public void planSearchRoute(LocationOnRoad currentLocation, long currentTime) {
 
         String pattern = dataModel.foo(); // Pretend we are using some data model for routing.
-
         route.clear();
+
         Intersection sourceIntersection = currentLocation.road.to;
-        int destinationIndex = rnd.nextInt(map.intersections().size());
-        Intersection[] intersectionArray = map.intersections().values().toArray(new Intersection[map.intersections().size()]);
-        Intersection destinationIntersection = intersectionArray[destinationIndex];
-        if (destinationIntersection == sourceIntersection) {
+        int destinationIndex = rnd.nextInt(2);
+        Intersection destinationIntersection = inters.get(destinationIndex);
+        if (destinationIntersection == sourceIntersection){
             // destination cannot be the source
             // if destination is the source, choose a neighbor to be the destination
             Road[] roadsFrom = sourceIntersection.roadsMapFrom.values().toArray(new Road[sourceIntersection.roadsMapFrom.values().size()]);
@@ -79,6 +88,7 @@ public class AgentBetterThanRandom extends BaseAgent {
      *
      * @return Intersection that the Agent is going to move to.
      */
+
     @Override
     public Intersection nextIntersection(LocationOnRoad currentLocation, long currentTime) {
         if (route.size() != 0) {
@@ -108,5 +118,4 @@ public class AgentBetterThanRandom extends BaseAgent {
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "resourcePickupLocation = " + resourcePikcupLocation);
         Logger.getLogger(this.getClass().getName()).log(Level.INFO, "resourceDropoffLocation = " + resourceDropoffLocation);
     }
-
 }

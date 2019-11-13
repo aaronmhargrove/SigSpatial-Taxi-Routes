@@ -18,7 +18,6 @@ import java.util.logging.Logger;
  * is assigned to a resource.
  */
 public class AgentRandomDestination extends BaseAgent {
-
 	// search route stored as a list of intersections.
 	LinkedList<Intersection> route = new LinkedList<Intersection>();
 
@@ -29,7 +28,7 @@ public class AgentRandomDestination extends BaseAgent {
 	static DummyDataModel dataModel = null;
 
 	/**
-	 * AgentRandomWalk constructor. 
+	 * AgentRandomWalk constructor.
 	 *
 	 * @param id An id that is unique among all agents and resources
 	 * @param map The map
@@ -45,28 +44,21 @@ public class AgentRandomDestination extends BaseAgent {
 	/**
 	 * Choose a random intersection of the map as the destination and set the
 	 * shortest travel time path as the search route.
-	 * 
+	 *
 	 * IMPORTANT: The first intersection on the resulted search route must not be the
-	 * end intersection of the current road, i.e., it must not be that 
-	 * route.get(0) == currentLocation.road.to. 
+	 * end intersection of the current road, i.e., it must not be that
+	 * route.get(0) == currentLocation.road.to.
 	 */
 
 	@Override
 	public void planSearchRoute(LocationOnRoad currentLocation, long currentTime) {
 
 		String pattern = dataModel.foo(); // Pretend we are using some data model for routing.
-		
+
 		route.clear();
 		Intersection sourceIntersection = currentLocation.road.to;
 		int destinationIndex = rnd.nextInt(map.intersections().size());
 		Intersection[] intersectionArray = map.intersections().values().toArray(new Intersection[map.intersections().size()]);
-		for(Intersection inter : intersectionArray){
-			if(inter.isGood()){
-				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "STATION ID " + inter.id + "\n");
-				System.out.println("STATION ID: " + inter.id);
-				int y = 1 + 2;
-			}
-		}
 		Intersection destinationIntersection = intersectionArray[destinationIndex];
 		if (destinationIntersection == sourceIntersection) {
 			// destination cannot be the source
@@ -80,9 +72,9 @@ public class AgentRandomDestination extends BaseAgent {
 
 	/**
 	 * This method polls the first intersection in the current route and returns this intersection.
-	 * 
-	 * This method is a callback method which is called when the agent reaches an intersection. The Simulator 
-	 * will move the agent to the returned intersection and then call this method again, and so on. 
+	 *
+	 * This method is a callback method which is called when the agent reaches an intersection. The Simulator
+	 * will move the agent to the returned intersection and then call this method again, and so on.
 	 * This is how a planned route (in this case randomly planned) is executed by the Simulator.
 	 *
 	 * @return Intersection that the Agent is going to move to.
@@ -98,7 +90,7 @@ public class AgentRandomDestination extends BaseAgent {
 			// Finished the planned route. Plan a new route.
 			planSearchRoute(currentLocation, currentTime);
 			return route.poll();
-		}		
+		}
 	}
 
 	/**
