@@ -60,6 +60,13 @@ public class AgentRandomDestination extends BaseAgent {
 		Intersection sourceIntersection = currentLocation.road.to;
 		int destinationIndex = rnd.nextInt(map.intersections().size());
 		Intersection[] intersectionArray = map.intersections().values().toArray(new Intersection[map.intersections().size()]);
+		for(Intersection inter : intersectionArray){
+			if(inter.isGood()){
+				Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "STATION ID " + inter.id + "\n");
+				System.out.println("STATION ID: " + inter.id);
+				int y = 1 + 2;
+			}
+		}
 		Intersection destinationIntersection = intersectionArray[destinationIndex];
 		if (destinationIntersection == sourceIntersection) {
 			// destination cannot be the source

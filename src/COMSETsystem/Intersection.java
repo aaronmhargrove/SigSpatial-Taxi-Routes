@@ -137,6 +137,18 @@ public class Intersection implements Comparable<Intersection> {
 		return (inter.id == this.id);
 	}
 
+	public boolean isGood(){
+		// -73.9935836792,40.7675285339
+		if(this.latitude == 40.7675285339 && this.longitude == -73.9935836792){
+			return true;
+		}
+		// -73.9917297363,40.7496681213
+		else if (this.latitude == 40.7496681213 && this.longitude == -73.9917297363){
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * returns the x-coordinate of this intersections
 	 * @return x-coordinate
