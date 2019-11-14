@@ -45,7 +45,7 @@ public class AgentBetterThanRandom extends BaseAgent {
 
         Intersection[] intersectionArray = map.intersections().values().toArray(new Intersection[map.intersections().size()]);
         for(Intersection inter : intersectionArray){
-            if(inter.id == 42430722 || inter.id == 42435422){
+            if(inter.isGood()){
                 inters.add(inter);
             }
         }
@@ -67,7 +67,7 @@ public class AgentBetterThanRandom extends BaseAgent {
         route.clear();
 
         Intersection sourceIntersection = currentLocation.road.to;
-        int destinationIndex = rnd.nextInt(2);
+        int destinationIndex = rnd.nextInt(inters.size());
         Intersection destinationIntersection = inters.get(destinationIndex);
         if (destinationIntersection == sourceIntersection){
             // destination cannot be the source

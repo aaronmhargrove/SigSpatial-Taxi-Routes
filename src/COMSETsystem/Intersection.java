@@ -17,6 +17,8 @@ public class Intersection implements Comparable<Intersection> {
 	
 	// a unique id
 	final public long id;
+        
+        public double searchThreshould = .05;
 	
 	// the index used to look up the shortest travel time path table (pathTable) in CityMap
 	public int pathTableIndex; 
@@ -139,11 +141,11 @@ public class Intersection implements Comparable<Intersection> {
 
 	public boolean isGood(){
 		// -73.9935836792,40.7675285339
-		if(((Math.abs(this.latitude - 40.7675285339) < .001)) && ((Math.abs(this.longitude - -73.9935836792) < .001))){
+		if(((Math.abs(this.latitude - 40.7675285339) < this.searchThreshould)) && ((Math.abs(this.longitude - -73.9935836792) < this.searchThreshould))){
 			return true;
 		}
 		// -73.9917297363,40.7496681213
-		else if(((Math.abs(this.latitude - 40.7496681213) < .001)) && ((Math.abs(this.longitude - -73.9917297363) < .001))){
+		else if(((Math.abs(this.latitude - 40.7496681213) < this.searchThreshould)) && ((Math.abs(this.longitude - -73.9917297363) < this.searchThreshould))){
 			return true;
 		}
 		else {
