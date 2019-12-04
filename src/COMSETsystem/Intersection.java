@@ -18,7 +18,7 @@ public class Intersection implements Comparable<Intersection> {
 	// a unique id
 	final public long id;
         
-        public double searchThreshould = .05;
+        public double searchThreshould = .01;
 	
 	// the index used to look up the shortest travel time path table (pathTable) in CityMap
 	public int pathTableIndex; 
